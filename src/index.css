@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+
+:root, :root[data-theme="light"] { --hms-accent-text: #0f766e; }  /* 5.1:1 */
+:root[data-theme="dark"]         { --hms-accent-text: #2dd4bf; }  /* 10.3:1 */
+
+@theme { --color-hms-accent-text: var(--hms-accent-text); }
