@@ -6,6 +6,8 @@ import Modules from './sections/Modules'
 import Roles from './sections/Roles'
 import Screens from './sections/Screens'
 import LocalNetwork from './sections/LocalNetwork'
+import Scope from './sections/Scope'
+import Faq from './sections/Faq'
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
         <Roles />
         <Screens />
         <LocalNetwork />
+        <Scope />
+        <Faq />
       </main>
 
       <Footer />

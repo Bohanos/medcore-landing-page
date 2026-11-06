@@ -1,4 +1,11 @@
-// Every word on the page lives in this file. Each phase adds more exports at the bottom.
+// All text on the page lives in this file, so a wording change never needs a code change.
+// The order follows the page from top to bottom:
+//   site, nav, footer   brand name, menu links and footer text
+//   hero                opening block and its short fact list
+//   journey             the step-by-step patient visit
+//   modules, roles      what the system does, and who can do what
+//   screens, network    screenshot gallery and the local-network explanation
+//   scope, faq          what is not included, and common questions
 
 export const site = {
   brand: 'MEDCORE',
@@ -21,7 +28,7 @@ export const footer = {
   note: 'All patient data shown on this page is fictional.',
 }
 
-/* ---------------- Phase 2 ---------------- */
+/* ---------------- Hero and patient journey ---------------- */
 
 export const hero = {
   eyebrow: 'Hospital management system',
@@ -113,7 +120,7 @@ export const journey = {
   ],
 }
 
-/* ---------------- Phase 3 ---------------- */
+/* ---------------- Modules and roles ---------------- */
 
 export const modules = {
   eyebrow: 'What it does',
@@ -318,7 +325,7 @@ export const roles = {
   ],
 }
 
-/* ---------------- Phase 4 ---------------- */
+/* ---------------- Screenshot gallery and local network ---------------- */
 
 export const screens = {
   eyebrow: 'The screens',
@@ -502,4 +509,150 @@ export const network = {
       { icon: 'lock', style: 'solid', name: 'JWT and Argon2' },
     ],
   },
+}
+
+/* ---------------- Scope and FAQ ---------------- */
+
+export const scope = {
+  eyebrow: 'Scope and fit',
+  title: 'What it is built for, and what it is not',
+  subtitle:
+    'MEDCORE is built for an outpatient hospital or clinic. This is what is not part of the current build, so you can judge the fit before anything else.',
+  fit: {
+    icon: 'hospital',
+    title: 'Built for',
+    text: 'An outpatient hospital or clinic: registering patients, booking and seeing them, billing, dispensing medicine and running tests, with reports for management.',
+  },
+  rule: {
+    icon: 'circle-info',
+    title: 'How to read this page',
+    text: 'If a feature is not described on this page, treat it as not included. Anything listed below is not partly built: it is not part of this build.',
+  },
+  notIncludedTitle: 'Not included in this build',
+  groups: [
+    {
+      icon: 'stethoscope',
+      title: 'Clinical care',
+      items: [
+        'Vital signs (temperature, pulse, respiration, blood pressure) and nursing observations',
+        'Medical history and family history records',
+        'Clinical record-keeping for the Nurse role (nurses can view records and create lab orders)',
+      ],
+    },
+    {
+      icon: 'bed',
+      title: 'Inpatient services',
+      items: [
+        'Admissions, wards and beds, transfers and discharge summaries',
+        'Operating theatre scheduling',
+      ],
+    },
+    {
+      icon: 'microscope',
+      title: 'Diagnostics',
+      items: [
+        'Radiology and imaging orders, or image storage',
+        'Connection to laboratory analysers or other medical devices',
+      ],
+    },
+    {
+      icon: 'comments',
+      title: 'Patients and communication',
+      items: [
+        'A patient portal or patient mobile app',
+        'SMS or WhatsApp notifications (notifications appear in the app and are emailed to patients and staff)',
+      ],
+    },
+    {
+      icon: 'receipt',
+      title: 'Billing and insurance',
+      items: [
+        'Insurance claim submission and tracking (insurance details are recorded on the patient, but claims are not processed)',
+        'Online payment gateways (payments are recorded by the Accountant)',
+      ],
+    },
+    {
+      icon: 'sitemap',
+      title: 'Organisation',
+      items: [
+        'More than one hospital or branch in a single installation',
+        'Languages other than English',
+      ],
+    },
+  ],
+  runTitle: 'How it is designed to run',
+  run: [
+    {
+      icon: 'network-wired',
+      title: 'Local network',
+      text: "The system runs on a server inside the hospital. It is not designed to be hosted publicly on the internet.",
+    },
+    {
+      icon: 'envelope',
+      title: 'Email',
+      text: "Emails are sent from the hospital's own Gmail account. A business account on the hospital's own domain is recommended, because a personal account sending many automated messages is more likely to be treated as spam.",
+    },
+    {
+      icon: 'download',
+      title: 'Backups',
+      text: 'An Admin downloads a complete backup when needed. The system does not schedule backups, and restoring follows the instructions inside the file. There is no restore button, by design, because a restore replaces all live data.',
+    },
+  ],
+  custom: {
+    icon: 'puzzle-piece',
+    title: 'Built to be adapted',
+    text: 'Every hospital works differently, so the source code is written to be changed. Anything listed above can be added, and existing behaviour can be changed, as a customization for a specific hospital.',
+    steps: [
+      'The hospital describes the workflow it needs',
+      'A written scope and quotation is provided before any work starts',
+      'The change is delivered with updated documentation',
+    ],
+  },
+}
+
+export const faq = {
+  eyebrow: 'Questions',
+  title: 'Common questions',
+  items: [
+    {
+      q: 'Is MEDCORE a cloud service?',
+      a: "No. It is installed on a computer in the hospital and used over the hospital's own network. The hospital hosts it and looks after it, which keeps patient data on site. It is not built to be used from outside the building.",
+    },
+    {
+      q: 'Does it need the internet?',
+      a: 'Daily work does not. Only email needs the internet, because messages to patients and staff are sent from a Gmail account. If an email cannot be sent, nothing else stops working.',
+    },
+    {
+      q: 'What do staff need to install?',
+      a: 'Nothing. Staff open the system in a web browser on any computer connected to the hospital network, and each person sees the screens built for their role.',
+    },
+    {
+      q: 'How is access controlled?',
+      a: 'There are seven roles, and every restriction is enforced by the server, so an unauthorised request is rejected whatever the screen shows. Passwords are hashed with Argon2, sessions end when the browser closes, logins are rate limited, and an Admin can deactivate an account at any time.',
+    },
+    {
+      q: 'Is anything ever deleted?',
+      a: "No. A staff member's history stays on record after the account is deactivated, drugs are discontinued instead of deleted, and patients are never deleted or marked inactive, so a patient who returns years later is always found.",
+    },
+    {
+      q: 'How do backups and restores work?',
+      a: 'An Admin downloads one file containing the database, the lab report PDFs and written restore instructions. The system does not schedule backups, so the hospital decides how often to take one and keeps copies on another device. Restoring is a manual procedure, because a restore replaces all live data.',
+    },
+    {
+      q: 'Can it handle admitted patients?',
+      a: 'Not in this build. MEDCORE covers outpatient work. Admissions, wards, beds and discharge are not included, although they can be discussed as a customization.',
+    },
+    {
+      q: 'Can it be changed for our hospital?',
+      a: 'Yes. The source code is written to be adapted. Changes are provided as a customization, with a written scope and quotation before any work starts, and they are delivered with updated documentation.',
+    },
+    {
+      q: 'Which languages does it support?',
+      a: 'English only. The interface has no language switcher.',
+    },
+    {
+      q: 'What is it built with?',
+      a: 'React for the screens, FastAPI (Python) for the server, and PostgreSQL for the database.',
+    },
+  ],
 }
