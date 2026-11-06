@@ -2,6 +2,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Hero from './sections/Hero'
 import Journey from './sections/Journey'
+import Modules from './sections/Modules'
+import Roles from './sections/Roles'
 
 export default function App() {
   return (
@@ -11,6 +13,8 @@ export default function App() {
       <main className="flex-1">
         <Hero />
         <Journey />
+        <Modules />
+        <Roles />
       </main>
 
       <Footer />
