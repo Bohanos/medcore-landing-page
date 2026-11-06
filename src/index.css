@@ -1,7 +1,127 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Theme tokens: light (default) and dark
+   ========================================================================== */
+:root,
+:root[data-theme="light"] {
+  --hms-bg: #f4f8fa;
+  --hms-surface: #ffffff;
+  --hms-surface-2: #e7eef1;
+  --hms-text: #101820;
+  --hms-text-dim: rgba(16, 24, 32, 0.6);
+  --hms-accent: #0f766e;        /* fills: buttons, icon tiles */
+  --hms-accent-rgb: 15, 118, 110;
+  --hms-accent-on: #ffffff;
+  --hms-accent-text: #0f766e;   /* text, links, icons: 5.1:1 on the light background */
+  color-scheme: light;
+}
 
-:root, :root[data-theme="light"] { --hms-accent-text: #0f766e; }  /* 5.1:1 */
-:root[data-theme="dark"]         { --hms-accent-text: #2dd4bf; }  /* 10.3:1 */
+:root[data-theme="dark"] {
+  --hms-bg: #0a0f14;
+  --hms-surface: #10171d;
+  --hms-surface-2: #182029;
+  --hms-text: #eef3f6;
+  --hms-text-dim: rgba(238, 243, 246, 0.6);
+  --hms-accent: #0f766e;
+  --hms-accent-rgb: 15, 118, 110;
+  --hms-accent-on: #ffffff;
+  --hms-accent-text: #2dd4bf;   /* 10.3:1 on the dark background */
+  color-scheme: dark;
+}
 
-@theme { --color-hms-accent-text: var(--hms-accent-text); }
+/* Status colours: the same in every theme */
+:root {
+  --hms-success: #16a34a;
+  --hms-warning: #f59e0b;
+  --hms-danger: #dc2626;
+  --hms-info: #0284c7;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-hms-bg: var(--hms-bg);
+  --color-hms-surface: var(--hms-surface);
+  --color-hms-surface-2: var(--hms-surface-2);
+  --color-hms-text: var(--hms-text);
+  --color-hms-text-dim: var(--hms-text-dim);
+  --color-hms-accent: var(--hms-accent);
+  --color-hms-accent-on: var(--hms-accent-on);
+  --color-hms-accent-text: var(--hms-accent-text);
+
+  --color-hms-success: var(--hms-success);
+  --color-hms-warning: var(--hms-warning);
+  --color-hms-danger: var(--hms-danger);
+  --color-hms-info: var(--hms-info);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* keeps anchor targets clear of the sticky navbar */
+}
+
+body {
+  background-color: var(--hms-bg);
+  color: var(--hms-text);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: rgba(var(--hms-accent-rgb), 0.3);
+}
+
+:focus-visible {
+  outline: 2px solid var(--hms-accent-text);
+  outline-offset: 2px;
+}
+
+/* Show the matching screenshot for the current theme */
+:root[data-theme="dark"] .only-light { display: none; }
+:root:not([data-theme="dark"]) .only-dark { display: none; }
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes hms-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes hms-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Page load: add the class and optionally style="--delay: 150ms" */
+.load-in   { animation: hms-fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--delay, 0s); }
+.load-fade { animation: hms-fade 0.6s ease both; animation-delay: var(--delay, 0s); }
+
+/* Scroll reveal: content stays visible if JavaScript is off (.js is added in index.html) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--delay, 0s);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .load-in,
+  .load-fade { animation: none; }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
