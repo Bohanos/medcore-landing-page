@@ -4,6 +4,8 @@ import Hero from './sections/Hero'
 import Journey from './sections/Journey'
 import Modules from './sections/Modules'
 import Roles from './sections/Roles'
+import Screens from './sections/Screens'
+import LocalNetwork from './sections/LocalNetwork'
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
         <Journey />
         <Modules />
         <Roles />
+        <Screens />
+        <LocalNetwork />
       </main>
 
       <Footer />

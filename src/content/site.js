@@ -317,3 +317,189 @@ export const roles = {
     },
   ],
 }
+
+/* ---------------- Phase 4 ---------------- */
+
+export const screens = {
+  eyebrow: 'The screens',
+  title: 'See the system at work',
+  subtitle:
+    'Real screens from the system, one for each stage of the visit. Choose a tab to see what each role works with.',
+  items: [
+    {
+      name: 'gate-awaiting-payment',
+      tab: 'Payment gate',
+      icon: 'lock',
+      role: 'Doctor',
+      title: 'An unpaid visit cannot be confirmed',
+      text: 'The doctor sees the appointment waiting for payment. Confirming is blocked until the invoice is paid in full, and the check is made by the server, so it cannot be skipped from the screen.',
+      points: [
+        'The appointment starts as Pending',
+        'Only the assigned doctor can confirm it',
+        'The patient is emailed once it is confirmed',
+      ],
+      alt: "A doctor's appointment list showing an appointment that is waiting for payment",
+    },
+    {
+      name: 'billing-invoices',
+      tab: 'Billing',
+      icon: 'file-invoice-dollar',
+      role: 'Accountant',
+      title: 'Every invoice and its status',
+      text: 'The Accountant owns billing. Invoices can be searched by patient name, patient ID or invoice number, and filtered by status: unpaid, partial, paid, cancelled or refunded.',
+      points: [
+        'Payments are recorded with a PDF receipt',
+        'Only an unpaid invoice can be edited',
+        'Refunds are limited to the amount paid',
+      ],
+      alt: 'The billing page listing invoices with their patients, dates, amounts and payment status',
+    },
+    {
+      name: 'prescription-preview',
+      tab: 'Prescription',
+      icon: 'prescription-bottle-medical',
+      role: 'Doctor',
+      title: 'The server works out quantity and price',
+      text: 'The doctor enters the dose, how often and for how long. The quantity, the price of each line and the total come from the server, never from arithmetic in the browser.',
+      points: [
+        'Only the fields each kind of drug needs are shown',
+        'A saved prescription cannot be edited, only cancelled',
+        'The invoice is created when the prescription is saved',
+      ],
+      alt: 'The new prescription window showing a drug, its dose and the calculated quantity and total price',
+    },
+    {
+      name: 'lab-result',
+      tab: 'Laboratory',
+      icon: 'flask',
+      role: 'Lab Technician',
+      title: 'Results are entered once the test is paid',
+      text: 'The technician opens a paid order, enters the result and can attach the report as a PDF. The doctor is notified at once and the patient is emailed.',
+      points: [
+        'Unpaid orders cannot be opened',
+        'The receptionist sees the status only, never the result',
+        'Report files are kept on the server and included in every backup',
+      ],
+      alt: 'The laboratory page where a technician enters a test result and attaches a report',
+    },
+    {
+      name: 'pharmacy-dispense',
+      tab: 'Pharmacy',
+      icon: 'pills',
+      role: 'Pharmacist',
+      title: 'Dispensing from the right batch',
+      text: 'The dispense screen lists each drug with its quantity and which batch to take first. The pharmacist ticks that the drugs were checked against the prescription before the final button unlocks.',
+      points: [
+        'The earliest-expiring batch is used first',
+        'Expired stock is never dispensed',
+        'The pharmacist is recorded as the person who dispensed',
+      ],
+      alt: 'The dispense screen listing drugs, quantities and the stock batch to use first',
+    },
+    {
+      name: 'reports',
+      tab: 'Reports',
+      icon: 'chart-line',
+      role: 'Admin',
+      title: 'Reports that export to PDF or Excel',
+      text: 'The Admin sees all five reports over a weekly, monthly or yearly range and can export one or all of them. The Accountant sees and exports the Revenue report only.',
+      points: [
+        'Refunds leave the revenue figures as soon as they are processed',
+        'Each role sees only the dashboard cards it may see',
+        'Exports are available in PDF and Excel',
+      ],
+      alt: 'The reports page showing revenue and activity figures with export buttons',
+    },
+  ],
+}
+
+export const network = {
+  eyebrow: 'Deployment',
+  title: 'Built to run inside the hospital',
+  subtitle:
+    "MEDCORE is installed on a computer in the hospital and used over the hospital's own network. It is not a cloud service, and it is not designed to be reached from the public internet.",
+  diagram: {
+    boundary: 'Inside the hospital',
+    staff: {
+      icon: 'display',
+      title: 'Staff computers',
+      text: 'Any computer on the hospital network. Staff open the system in a web browser.',
+      roles: ['Reception', 'Doctors', 'Nurses', 'Laboratory', 'Pharmacy', 'Accounts', 'Admin'],
+    },
+    link: 'Hospital network',
+    server: {
+      icon: 'server',
+      title: 'Hospital server',
+      tiles: [
+        { icon: 'window-maximize', title: 'Web app', text: 'The screens staff see (React)' },
+        { icon: 'gears', title: 'API', text: 'Rules, permissions and payment checks (FastAPI)' },
+        { icon: 'database', title: 'Database', text: 'Patient, billing and stock records (PostgreSQL)' },
+        { icon: 'file-pdf', title: 'Report files', text: 'Lab result PDFs stored on the server' },
+      ],
+      backup: {
+        icon: 'download',
+        title: 'Backup download',
+        text: 'The Admin downloads one file with the database, the lab reports and restore instructions.',
+      },
+    },
+    email: {
+      icon: 'envelope',
+      title: "Email: the only part that needs the internet",
+      text: "Messages to patients and staff are sent from the hospital's own Gmail account. If email cannot be sent, everything else keeps working.",
+    },
+  },
+  facts: [
+    {
+      icon: 'building',
+      title: 'Patient data stays on site',
+      text: "Records are stored on the hospital's own server and are not hosted publicly.",
+    },
+    {
+      icon: 'display',
+      title: 'Nothing to install on staff computers',
+      text: 'Staff use a web browser. Each person signs in to the view built for their role.',
+    },
+    {
+      icon: 'clock',
+      title: "Follows the hospital's time zone",
+      text: 'Appointment times and patient emails use the hospital time zone, set once during installation.',
+    },
+    {
+      icon: 'hard-drive',
+      title: 'Backups on request',
+      text: 'The system does not schedule backups. The hospital decides how often to take one and where copies are kept.',
+    },
+    {
+      icon: 'key',
+      title: 'Sessions end with the browser',
+      text: 'Staff are signed out when the browser window closes, and a deactivated account loses access on its next action.',
+    },
+    {
+      icon: 'envelope',
+      title: 'Email is optional for daily work',
+      text: 'A failed email never blocks an action. Every send runs in the background.',
+    },
+  ],
+  needs: {
+    title: 'What the hospital provides',
+    items: [
+      { icon: 'server', text: 'A computer that stays on, to act as the server' },
+      { icon: 'network-wired', text: 'A fixed address for it on the hospital network' },
+      { icon: 'envelope', text: 'A Gmail account for sending emails (a business account is recommended)' },
+      { icon: 'hard-drive', text: 'A person who takes regular backups and keeps a copy elsewhere' },
+    ],
+  },
+  tradeoff: {
+    title: 'The trade-off',
+    text: 'Because it runs on your own network, the hospital hosts it and looks after it. That keeps patient data in your hands, but it is not built to be used from outside the building.',
+  },
+  stack: {
+    label: 'Built with',
+    items: [
+      { icon: 'react', style: 'brands', name: 'React' },
+      { icon: 'python', style: 'brands', name: 'FastAPI (Python)' },
+      { icon: 'database', style: 'solid', name: 'PostgreSQL' },
+      { icon: 'lock', style: 'solid', name: 'JWT and Argon2' },
+    ],
+  },
+}
