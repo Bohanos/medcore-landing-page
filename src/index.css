@@ -62,6 +62,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem; /* keeps anchor targets clear of the sticky navbar */
+  scrollbar-gutter: stable; /* stops the page shifting sideways when the preview hides the scrollbar */
 }
 
 body {
