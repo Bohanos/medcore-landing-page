@@ -3,6 +3,7 @@ import Icon from './Icon'
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { builtBy } = footer
 
   return (
     <footer className="border-t border-hms-text/10 bg-hms-surface">
@@ -19,6 +20,17 @@ export default function Footer() {
           >
             <Icon name="arrow-up" /> Back to top
           </a>
+          <p>
+            {builtBy.prefix}{' '}
+            <a
+              href={builtBy.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-hms-accent-text hover:underline"
+            >
+              {builtBy.name}
+            </a>
+          </p>
           <p>
             &copy; {year} {site.name}
           </p>

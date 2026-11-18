@@ -14,6 +14,7 @@ export const site = {
 }
 
 export const nav = [
+  { label: 'Demo', href: '#demo' },
   { label: 'How it works', href: '#journey' },
   { label: 'Modules', href: '#modules' },
   { label: 'Roles', href: '#roles' },
@@ -26,6 +27,7 @@ export const nav = [
 export const footer = {
   line: "Runs on the hospital's own network.",
   note: 'All patient data shown on this page is fictional.',
+  builtBy: { prefix: 'Built by', name: 'Bohanos', href: 'https://bohanos.vercel.app/' },
 }
 
 /* ---------------- Hero and patient journey ---------------- */
@@ -654,5 +656,27 @@ export const faq = {
       q: 'What is it built with?',
       a: 'React for the screens, FastAPI (Python) for the server, and PostgreSQL for the database.',
     },
+  ],
+}
+
+/* ---------------- Demo video ---------------- */
+
+export const demo = {
+  eyebrow: 'Watch the demo',
+  title: 'See it in action in three minutes',
+  subtitle:
+    "A short walkthrough of one patient's visit, from registration to billing, laboratory and pharmacy.",
+  url: 'https://youtu.be/x3ZE71Gsl0I',
+  button: 'Watch on YouTube',
+  note: 'Opens YouTube in a new tab.',
+  alt: 'Thumbnail of the MEDCORE HMS demo video, with a play button',
+  coversLabel: 'In the video',
+  covers: [
+    'Registration and booking',
+    'The payment gate and receipt',
+    'Prescription and lab order',
+    'Lab result',
+    'Pharmacy dispensing',
+    'Reports and roles',
   ],
 }
